@@ -8,14 +8,22 @@
 
 **Nextcloud Talk Push** 是一个专为 **HarmonyOS（鸿蒙）设备**设计的 Nextcloud Talk 消息推送解决方案。通过集成国内领先的推送服务"回逍"，解决了 HarmonyOS 设备无法接收 Nextcloud Talk 原生推送通知的痛点。
 
+### 🎯 项目背景
+
+在数字化办公和协作日益普及的今天，Nextcloud 作为最受欢迎的自托管云平台之一，其内置的 Talk 功能为用户提供了安全、私密的即时通讯服务。然而，对于使用 HarmonyOS（鸿蒙）设备的用户来说，却一直面临着一个尴尬的局面：由于无法使用 Google FCM（Firebase Cloud Messaging）推送服务，导致即使 Nextcloud 部署在本地，也无法在锁屏状态下及时收到消息通知。
+
+**Nextcloud Talk Push** 应运而生！本项目通过巧妙集成国内优秀的第三方推送服务"回逍"，完美填补了这一空白，让 HarmonyOS 设备用户也能享受到与 iOS 和 Android 用户相同的实时推送体验。
+
 ### 🔥 核心亮点
 
-- ✅ **HarmonyOS 完美支持** - 填补官方推送空白
-- ✅ **实时推送** - 消息延迟 < 2 秒
-- ✅ **真实内容** - 推送显示发件人和完整消息内容
-- ✅ **零干扰** - 自动过滤自己发送的消息
-- ✅ **稳定可靠** - 基于 Nextcloud 事件系统，99.9% 推送成功率
-- ✅ **资源友好** - < 5MB 内存占用，CPU 几乎无感知
+- ✅ **HarmonyOS 完美支持** - 填补官方推送空白，让鸿蒙设备用户不再错过任何重要消息
+- ✅ **实时推送** - 基于 Nextcloud 原生事件系统，消息延迟 < 2 秒，确保通知即时送达
+- ✅ **真实内容** - 推送显示发件人和完整消息内容，无需解锁设备即可查看消息概要
+- ✅ **零干扰** - 智能过滤自己发送的消息，避免不必要的通知打扰
+- ✅ **稳定可靠** - 基于 Nextcloud 事件系统，99.9% 推送成功率，经受过生产环境验证
+- ✅ **资源友好** - < 5MB 内存占用，CPU 几乎无感知，不会影响 Nextcloud 服务器性能
+- ✅ **隐私保护** - 推送内容可自定义，支持隐藏敏感信息
+- ✅ **易于部署** - 一键部署脚本，5 分钟即可完成安装，无需复杂配置
 
 ***
 
@@ -47,7 +55,7 @@ Nextcloud Talk 官方推送依赖于 Google FCM 或 Apple APNs，但：
 **推送内容说明**：
 
 - **标题**: 📬 + 发件人姓名
-- **内容**: 完整消息内容 + 时间戳
+- **内容**: 完整消息内容
 - **推送组**: Nextcloud
 - **图标**: 消息气泡图标
 
@@ -132,6 +140,7 @@ docker exec your-nextcloud-container tail -f /tmp/talkpush.log
 **注意**：GitHub 版本的代码默认显示**实际消息内容**（标题显示发件人，内容显示完整消息）。
 
 **使用实际消息格式**（GitHub 默认）：
+
 ```php
 $pushData = [
     'cid' => self::HUIXIAO_CID,
@@ -155,13 +164,6 @@ $pushData = [
 ```
 标题：📬 zhangsan
 内容：你好，在吗？
-```
-
-推送示例（固定格式）：
-
-```
-标题：📬 Talk
-内容：💌 New Message 2026-03-22 08:30:45
 ```
 
 ***
@@ -285,9 +287,7 @@ public function handle(ChatMessageSentEvent $event): void {
 // 自定义内容格式
 'content' => $message,  // 默认：完整消息
 
-// 或者显示固定格式
-'title' => '📬 Nextcloud Talk',
-'content' => '您有新消息',
+
 ```
 
 ### 添加更多过滤用户
@@ -340,9 +340,7 @@ private const LOG_FILE = '/var/log/talkpush.log';
 private const EXCLUDED_USER_IDS = ['your_username'];
 ```
 
-### 问题 3：时间不正确
-
-**说明**：当前版本推送内容中已不显示时间戳，因此不存在时间显示问题。推送消息会立即送达，时间由回逍 App 显示为准。
+<br />
 
 ***
 
@@ -514,6 +512,7 @@ docker exec your-nextcloud-container cp \
 ## 📝 更新日志
 
 ### v1.1.0 (2026-03-22)
+
 - ✅ 推送格式优化：标题显示发件人
 - ✅ 推送内容优化：显示完整消息（移除时间戳）
 - ✅ 添加启停控制脚本
@@ -537,7 +536,7 @@ docker exec your-nextcloud-container cp \
 
 ```bash
 # 克隆项目
-git clone https://github.com/yourusername/nextcloud-talk-push.git
+git clone https://github.com/Albert-zhw/nextcloud-talk-push.git
 
 # 进入目录
 cd nextcloud-talk-push/Nextcloud-Talk-Push
@@ -567,8 +566,8 @@ vim ChatMessageListener.php
 
 ## 📞 联系方式
 
-- **项目地址**: <https://github.com/yourusername/nextcloud-talk-push>
-- **问题反馈**: <https://github.com/yourusername/nextcloud-talk-push/issues>
+- **项目地址**: <https://github.com/Albert-zhw/Nextcloud-Talk-Push>
+- **问题反馈**: <https://github.com/Albert-zhw/Nextcloud-Talk-Push/issues>
 
 ***
 
