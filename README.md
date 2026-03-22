@@ -131,35 +131,18 @@ docker exec your-nextcloud-container tail -f /tmp/talkpush.log
 
 **注意**：GitHub 版本的代码默认显示**实际消息内容**（标题显示发件人，内容显示完整消息）。
 
-如果您想使用**固定格式**（标题固定为 📬 Talk，内容固定为 💌 New Message + 时间），请参考以下说明：
-
-**使用固定格式**：
-
-1. 编辑 `ChatMessageListener.php`
-2. 找到 `$pushData` 数组（约第 38 行）
-3. 修改为：
-
-```php
-$pushData = [
-    'cid' => self::HUIXIAO_CID,
-    'group' => 'Nextcloud',
-    'title' => '📬 Talk',  // 固定标题
-    'content' => "💌 New Message {$currentTime}",  // 固定内容
-    'icon' => self::HUIXIAO_ICON
-];
-```
-
 **使用实际消息格式**（GitHub 默认）：
-
 ```php
 $pushData = [
     'cid' => self::HUIXIAO_CID,
     'group' => 'Nextcloud',
     'title' => "📬 {$actorId}",  // 显示发件人
-    'content' => "{$message} ({$currentTime})",  // 显示完整消息
+    'content' => $message,  // 显示完整消息
     'icon' => self::HUIXIAO_ICON
 ];
 ```
+
+如需自定义推送格式，请编辑 `ChatMessageListener.php` 中的 `$pushData` 数组。
 
 #### 步骤 6: 测试推送
 
