@@ -228,16 +228,12 @@ public function handle(ChatMessageSentEvent $event): void {
         return;
     }
     
-    // 获取北京时间
-    $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Shanghai'));
-    $currentTime = $dateTime->format('Y-m-d H:i:s');
-    
     // 构建推送数据（标题显示发件人，内容显示实际消息）
     $pushData = [
         'cid' => self::HUIXIAO_CID,
         'group' => 'Nextcloud',
         'title' => "📬 {$actorId}",
-        'content' => "{$message} ({$currentTime})",
+        'content' => "{$message}",
         'icon' => self::HUIXIAO_ICON
     ];
     
@@ -514,7 +510,7 @@ docker exec your-nextcloud-container cp \
 ### v1.1.0 (2026-03-22)
 
 - ✅ 推送格式优化：标题显示发件人
-- ✅ 推送内容优化：显示完整消息（移除时间戳）
+- ✅ 推送内容优化：显示完整消息
 - ✅ 添加启停控制脚本
 - ✅ 完善故障排查文档
 
