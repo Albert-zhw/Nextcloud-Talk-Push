@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>talkpush</id>
+    <name>TalkPush</name>
+    <summary>Talk message push to HuiXiao</summary>
+    <description>Push Nextcloud Talk messages to HuiXiao notification service for HarmonyOS devices</description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>Your Name</author>
+    <namespace>TalkPush</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="32" max-version="33"/>
+    </dependencies>
+</info>
